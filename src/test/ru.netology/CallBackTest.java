@@ -3,7 +3,7 @@ public class CallBackTest {
 
     @BeforeAll
     static void setUpAll() {
-        System.setProperty("Webdriver.chrome.driver". "C:\\Users\\Vadim\\IdeaProjects\\Selenium\\driver\\win")
+        System.setProperty("Webdriver.chrome.driver". "C:\\Users\\Vadim\\IdeaProjects\\Selenium\\driver\\wing")
     }
 
     @BeforeEach
