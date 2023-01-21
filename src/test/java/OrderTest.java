@@ -31,4 +31,11 @@ public class OrderTest {
         driver.findElement().sendKeys("василий");
 
     }
+
+    private Object findElement() {
+    }
+
+    private void get(String s) {
+        
+    }
 }
