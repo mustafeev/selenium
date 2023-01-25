@@ -1,41 +1,45 @@
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import org.junit.jupiter.api.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class OrderTest {
-    private OrderTest driver;
+    private ChromeDriver driver;
 
     @BeforeAll
-    static void setUpAll() {
-        System.setProperty("webdriver.chrome.driver",".C:/Users/Vadim/IdeaProjects/Selenium/driver/win/chromedriver.exe");
+    public static void setUpAll() {
+        WebDriverManager.chromedriver().setup();
+        System.setProperty("webdriver.chrome.whitelistedIps", "");
     }
 
     @BeforeEach
-    void setUp() {
-        driver = new OrderTest();
+    public void beforeEach() {
+        ChromeOptions options = new ChromeOptions();
+        options.addArguments("--disable-dev-shm-usage");
+        options.addArguments("--no-sandbox");
+        options.addArguments("--headless");
+        driver = new ChromeDriver(options);
+        driver.get("http://localhost:9999");
     }
 
     @AfterEach
-    void tearDown() {
+    public void afterEach() {
         driver.quit();
         driver = null;
     }
 
-    private void quit() {
-    }
-
     @Test
-    void shouldTestSomething() {
-        driver.get("http://localhost:9999/");
-        driver.findElement().sendKeys("василий");
-
-    }
-
-    private Object findElement() {
-    }
-
-    private void get(String s) {
-        
+    void shouldBeSuccessfulForm() {
+        driver.findElement(By.cssSelector("[data-test-id=name] input")).sendKeys(
+        "Иван-Иванович Иванов");
+        driver.findElement(By.cssSelector("[data-test-id=phone] input")).sendKeys(
+        "+79278568743");
+        driver.findElement(By.cssSelector("[data-test-id=agreement]")).click();
+        driver.findElement(By.cssSelector("button.button"));
+        var actualText = driver.findElement(By.cssSelector("[data-test-id=order-success]")).getText().trim();
+        assertEquals("Ваша заявка успешно отправлена! Наш менеджер свяжется с вами в ближайшее время.", actualText);
     }
 }
