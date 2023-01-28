@@ -12,7 +12,7 @@ public class OrderTest {
     @BeforeAll
     public static void setUpAll() {
         WebDriverManager.chromedriver().setup();
-        System.setProperty("webdriver.chrome.whitelistedIps", "");
+        System.setProperty("webВriver.chrome.whitelistedIps", "");
     }
 
     @BeforeEach
